@@ -54,14 +54,28 @@ app.get('/group', function (req, res) {
   });
 });
 
-app.get('/files', function (req, res) {
+app.get('/file', function (req, res) {
   client = createBoxClient()
   client.folders.getItems('0', null, function(err, data) {
     res.status(200).send(data);
   });
 });
 
-var server = app.listen(3000, function () {
+app.get('/collection', function (req, res) {
+  client = createBoxClient()
+  client.collections.getAll(function(err, data) {
+    res.status(200).send(data);
+  });
+});
+
+app.get('/user', function (req, res) {
+  client = createBoxClient()
+  client.enterprise.getUsers(null, function(err, data) {
+    res.status(200).send(data);
+  });
+});
+
+var server = app.listen(5000, function () {
   var port = server.address().port;
   console.log('Example app listening at port %s', port);
 });
